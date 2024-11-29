@@ -140,7 +140,7 @@ Here’s how you can contribute:
 ## 💬 Contact
 If you have any questions or suggestions, feel free to reach out:
 - **Name**: Amrit Kumar  
-- **Email**: [your-amrit.shah.1335@gmail.com](mailto:amrit.shah.1335@gmail.com)  
+- **Email**: [amrit.shah.1335@gmail.com](mailto:amrit.shah.1335@gmail.com)  
 - **GitHub**: [Amritkumar1335](https://github.com/Amritkumar1335)  
 
 ---
