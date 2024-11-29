@@ -1,0 +1,16 @@
+<aiml version="1.0.1">
+    <category>
+        <pattern>LOAD AIML B</pattern>
+        <template>
+            <learn>aiml/aiml_b.aiml</learn>
+        </template>
+    </category>
+
+    <!-- Initial greeting or other basic commands -->
+    <category>
+        <pattern>HELLO</pattern>
+        <template>
+            Hello, how can I assist you with healthcare today?
+        </template>
+    </category>
+</aiml>

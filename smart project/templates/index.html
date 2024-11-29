@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Healthcare Assistant</title>
+    <style>
+        /* Reset styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #6a82fb, #fc5c7d);
+            height: 100vh;
+        }
+
+        /* Chat container */
+        .chat-container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 80vh;
+        }
+
+        /* Chat header */
+        .chat-header {
+            background: #6a82fb;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            border-bottom: 2px solid #ccc;
+        }
+
+        /* Chat box */
+        .chat-box {
+            flex: 1;
+            padding: 20px;
+            background: #f8f8f8;
+            overflow-y: auto;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .message {
+            max-width: 80%;
+            display: inline-block;
+            padding: 12px 18px;
+            border-radius: 25px;
+            word-wrap: break-word;
+            font-size: 16px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .message.user {
+            background: #6a82fb;
+            color: #fff;
+            align-self: flex-end;
+        }
+
+        .message.bot {
+            background: #e0e6ff;
+            color: #333;
+            align-self: flex-start;
+        }
+
+        /* Chat input area */
+        .chat-input-area {
+            display: flex;
+            background: #fff;
+            border-top: 2px solid #e0e0e0;
+            padding: 12px 20px;
+            justify-content: space-between;
+        }
+
+        .chat-input-area input[type="text"] {
+            flex: 1;
+            padding: 12px 15px;
+            border-radius: 25px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            outline: none;
+        }
+
+        .chat-input-area input[type="text"]:focus {
+            border-color: #6a82fb;
+        }
+
+        .chat-input-area button {
+            background: #6a82fb;
+            color: #fff;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s ease;
+        }
+
+        .chat-input-area button:hover {
+            background: #5b6fd1;
+        }
+
+        /* Scrollbar styling */
+        .chat-box::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat-box::-webkit-scrollbar-thumb {
+            background: #6a82fb;
+            border-radius: 10px;
+        }
+
+        /* Input button icon */
+        .chat-input-area button i {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chat-container">
+    <div class="chat-header">
+        <h2>Smart Healthcare Assistant</h2>
+    </div>
+    
+    <div class="chat-box" id="chat-box">
+        <div class="message bot">
+            <span>Hi! I am your Smart Healthcare Assistant. How can I help you today?</span>
+        </div>
+    </div>
+    
+    <div class="chat-input-area">
+        <input type="text" id="user-input" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<script>
+    const chatBox = document.getElementById("chat-box");
+    const userInput = document.getElementById("user-input");
+    const serverUrl = "http://127.0.0.1:5000";  // Update with the correct server URL
+
+    // Handles pressing 'Enter' key to send message
+    function handleKeyPress(event) {
+        if (event.key === "Enter") {
+            sendMessage();
+        }
+    }
+
+    // Function to send message and receive a response from the server
+    async function sendMessage() {
+        const message = userInput.value.trim();
+        if (message) {
+            // Display user message
+            displayMessage(message, "user");
+            userInput.value = "";  // Clear input field
+
+            try {
+                const response = await fetch(`${serverUrl}/get_response`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams({ user_input: message })  // Send message as x-www-form-urlencoded
+                });
+
+                const data = await response.json();
+                
+                // Display bot's actual response
+                const botMessage = data.response;
+                displayMessage(botMessage, "bot");
+            } catch (error) {
+                console.error("Error communicating with server:", error);
+                displayMessage("Sorry, I am having trouble connecting right now.", "bot");
+            }
+        }
+    }
+
+    // Function to display messages (both user and bot)
+    function displayMessage(text, sender) {
+        const messageContainer = document.createElement("div");
+        messageContainer.classList.add("message", sender);
+
+        const messageText = document.createElement("span");
+        messageText.textContent = text;
+        
+        messageContainer.appendChild(messageText);
+        chatBox.appendChild(messageContainer);
+
+        // Scroll to the latest message
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+</script>
+
+</body>
+</html>

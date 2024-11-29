@@ -1,0 +1,15 @@
+<aiml version="1.0.1">
+    <category>
+        <pattern>HOW ARE YOU</pattern>
+        <template>
+            I'm doing well, thank you!
+        </template>
+    </category>
+
+    <category>
+        <pattern>WHAT IS HEALTHCARE</pattern>
+        <template>
+            Healthcare involves maintaining health through prevention, diagnosis, and treatment.
+        </template>
+    </category>
+</aiml>
