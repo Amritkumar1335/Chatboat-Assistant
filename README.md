@@ -3,7 +3,7 @@
 
 Smart Healthcare Assistant is an innovative chatbot designed to provide users with quick and accurate healthcare-related responses. The chatbot is intuitive, user-friendly, and can assist with common health queries such as symptoms, medications, finding doctors, and more.  
 
-![Chatbot UI](chatbot_ui.png)
+![Chatbot UI](chatbot_ui.png.png)
 
 ---
 
@@ -28,7 +28,7 @@ Smart Healthcare Assistant is an innovative chatbot designed to provide users wi
 
 ## 🖥️ Screenshot
 Here’s a sneak peek at the chatbot's interface:  
-![Chatbot UI Screenshot](chatbot_ui.png)
+![Chatbot UI Screenshot](chatbot_ui.png.png)
 
 ---
 
